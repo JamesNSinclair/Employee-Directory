@@ -1,0 +1,139 @@
+/* Global Layout Set-up */
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+
+
+}
+
+a {
+  color: purple;
+}
+
+a:hover {
+  color: violet;
+}
+
+
+.searchbar {
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.pic-collection {
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 25px;
+  grid-column: 1fr;
+  justify-content: center;
+}
+
+.employee {
+  border: 0.5px solid lightgrey;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.employee-deets {
+    margin: auto;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  height: 8rem;
+  width: 8rem;
+  position: relative;
+}
+
+.pic-collection img {
+ margin: 1rem;
+}
+
+.modal-employee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#modalDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  z-index: -10;
+  background: rgba(255, 0, 0, 0.5);
+}
+
+.employeeModal {
+  background: white;
+  padding: 50px;
+}
+
+
+/* The Close Button */
+.close {
+  float: right;
+  color: #c8c8c8;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Previous and next Buttons */
+.previous,
+.next {
+  color: #c8c8c8;
+  font-size: 28px;
+  font-weight: bold;
+  position: relative;
+  top: 150px;
+}
+
+.previous {
+  float: left;
+  margin-right: 20px;
+}
+
+.next {
+  float: right;
+  margin-left: 20px;
+  left: 15px;
+}
+
+.close:hover,
+.previous:hover,
+.next:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* MEDIA QUERIES */
+
+@media only screen and (min-width: 768px) {
+	.pic-collection {
+		grid-template-columns: 1fr 1fr;
+	}
+
+  .employee {
+    flex-direction: row;
+}
+
+@media only screen and (min-width: 1024px) {
+
+
+  .pic-collection {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+}
