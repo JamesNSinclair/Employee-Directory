@@ -72,7 +72,7 @@ const html = `
 
 	goesHere.innerHTML = html;
 
-	changeColor(goesHereNum, dataLengthCount); 
+	changeColor(goesHereNum, dataLengthCount);
 
 
 }
@@ -120,8 +120,9 @@ const toChange = document.getElementById(goesHereNum);
 		} else {
 			e.target.style.backgroundColor = 'green';
 		};
-
+sayhello();
 })
+
 }
 
 function createModal () {
@@ -142,6 +143,14 @@ const html = `
 
 	changeColor(goesHereNum)
 
+};
+
+function sayhello() {
+let next = document.querySelector('.next');
+
+next.addEventListener('click', e => {
+console.log('hello');
+});
 }
 
 
