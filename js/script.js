@@ -72,11 +72,7 @@ const html = `
 
 	goesHere.innerHTML = html;
 
-	changeColor(goesHereNum, dataLengthCount); {
-
-	sayHello(next)
-
-}
+	changeColor(goesHereNum, dataLengthCount); 
 
 
 }
@@ -146,15 +142,9 @@ const html = `
 
 	changeColor(goesHereNum)
 
-};
+}
 
-sayhello() {
-const next = document.getElementByClassName('.next');
 
-next.addEventListener('click', e => {
-console.log('hello');
-})
-};
 /*
 for ( let i=0; i <= 12; i+=1) {
 	people[i]
