@@ -27,38 +27,41 @@ const name = document.getElementById('name');
 const email = document.getElementById('email');
 const town = document.getElementById('town');
 const contactInfo = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture&?nat=us,gb';
+let modal = document.getElementById('modalDiv');
 
 
 
 fetch(contactInfo)
 .then(response => response.json())
-.then(data => summonDiv(data.results))
+.then(data => createData(data.results))
 
+
+//FUNCTIONS
+
+
+//Make Divs
+
+
+function createData(data) {
+	for (let i = 0; i < data.length; i+=1) {
+		//emptyDiv(data);
+		number = i+1;
+		let dataLengthCount = data[i];
+		console.log(dataLengthCount)
+		storeData(dataLengthCount, number, data);
+
+	}
+	}
 
 //FUNCTION
 
-/*  CREATING AN EMPTY DIV SO PREMADE ONES DON'T HAVE TO BE MADE
+//  CREATING AN EMPTY DIV SO PREMADE ONES DON'T HAVE TO BE MADE
 
-function emptyDiv(data) {
 
-const toAdd = document.getElementById('pic-collection');
-const counting = data.length;
-
-	for (let i=0; i < counting; i+=1) {
-	   const newDiv = document.createElement('div');
-	   newDiv.id = 'goesHere';
-	   newDiv.className = 'employee';
-	   toAdd.appendChild(newDiv);
-	}
-
-}
-
-*/
-
-function fillDiv(dataLengthCount, number) {
+function storeData(dataLengthCount, number, data) {
 const	goesHereNum =	'goesHere' + number;
 let goesHere = document.getElementById(goesHereNum);
-console.log(goesHereNum);
+console.log(number);
 const html = `
 	<div class="employee" id=${number}>
 		<img class='profile-pic' src="${dataLengthCount.picture.large}">
@@ -72,30 +75,18 @@ const html = `
 
 	goesHere.innerHTML = html;
 
-	changeColor(goesHereNum, dataLengthCount);
+	createLightbox(goesHereNum, dataLengthCount, data);
 
 
 }
 
-function summonDiv(data) {
-	for (let i = 0; i < data.length; i+=1) {
-		//emptyDiv(data);
-		number = i+1;
-		let dataLengthCount = data[i];
-		console.log(dataLengthCount)
-		fillDiv(dataLengthCount, number);
 
-
-	}
-	}
-
-function changeColor(goesHereNum, dataLengthCount) {
-const toChange = document.getElementById(goesHereNum);
+function createLightbox(goesHereNum, dataLengthCount, data) {
+let toChange = document.getElementById(goesHereNum);
 
 	toChange.addEventListener('click', e => {
  const hereItGoes = parseInt(e.target.id);
- console.log(dataLengthCount);
- let modal = document.getElementById('modalDiv');
+ console.log(hereItGoes);
  modal.style.zIndex = 5;
 
  const html = `
@@ -120,55 +111,71 @@ const toChange = document.getElementById(goesHereNum);
 		} else {
 			e.target.style.backgroundColor = 'green';
 		};
-sayhello();
+createScroll(data, hereItGoes, goesHereNum);
 })
 
 }
 
-function createModal () {
-let goesHere = document.getElementById(goesHereNum);
-console.log(goesHereNum);
-const html = `
-<div class="employeeModal">
-	<img class='profile-pic' src="${dataLengthCount.picture.large}">
-			<h4> ${dataLengthCount.name.title} ${dataLengthCount.name.first} ${dataLengthCount.name.last}</h4>
-			<p> ${dataLengthCount.email}</p>
-			<p> ${dataLengthCount.location.city}</p>
-			<p> ${dataLengthCount.phone}</p>
-			<p> ${dataLengthCount.location.street} ${dataLengthCount.location.state} ${dataLengthCount.location.postcode}</p>
 
-</div>`;
-
-	goesHere.innerHTML = html;
-
-	changeColor(goesHereNum)
-
-};
-
-function sayhello() {
+function createScroll(data, hereItGoes, goesHereNum) {
 let next = document.querySelector('.next');
+let previous = document.querySelector('.previous');
+let hereItGoes 
+
+
 
 next.addEventListener('click', e => {
-console.log('hello');
+hereItGoes += 1;
+let dataLengthCount = data[hereItGoes]
+
+console.log(hereItGoes);
+
+const html = `
+<div class="employeeModal">
+<span class="close">&times;</span>
+<span class="previous">&#60;</span>
+<span class="next">&#62;</span>
+<div class="modal-employee">
+ <img class='profile-pic' src="${dataLengthCount.picture.large}">
+		 <h4> ${dataLengthCount.name.title} ${dataLengthCount.name.first} ${dataLengthCount.name.last}</h4>
+		 <p> ${dataLengthCount.email}</p>
+		 <p> ${dataLengthCount.location.city}</p>
+		 <p> ${dataLengthCount.phone}</p>
+		 <p> ${dataLengthCount.location.street} ${dataLengthCount.location.state} ${dataLengthCount.location.postcode}</p>
+ </div>
+</div>`;
+
+ modal.innerHTML = html;
+
+
+
+ createScroll(data, hereItGoes, goesHereNum);
 });
+
+previous.addEventListener('click', e => {
+	hereItGoes += -1;
+	let dataLengthCount = data[hereItGoes]
+console.log(hereItGoes);
+
+const html = `
+<div class="employeeModal">
+<span class="close">&times;</span>
+<span class="previous">&#60;</span>
+<span class="next">&#62;</span>
+<div class="modal-employee">
+ <img class='profile-pic' src="${dataLengthCount.picture.large}">
+		 <h4> ${dataLengthCount.name.title} ${dataLengthCount.name.first} ${dataLengthCount.name.last}</h4>
+		 <p> ${dataLengthCount.email}</p>
+		 <p> ${dataLengthCount.location.city}</p>
+		 <p> ${dataLengthCount.phone}</p>
+		 <p> ${dataLengthCount.location.street} ${dataLengthCount.location.state} ${dataLengthCount.location.postcode}</p>
+ </div>
+</div>`;
+
+ modal.innerHTML = html;
+
+
+ createScroll(data, hereItGoes, goesHereNum);
+});
+
 }
-
-
-/*
-for ( let i=0; i <= 12; i+=1) {
-	people[i]
-}
-
-xhr.onreadystatechange = function () {
-	 if(xhr.readyState === 4) {
-		 let employees = JSON.parse("xhr.responseText");
-		 console.log(typeof employees);
-
-	 }
-};
-
-xhr.open('GET', "https://randomuser.me/");
-xhr.send();
-
-
-*/
