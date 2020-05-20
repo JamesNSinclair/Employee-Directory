@@ -29,8 +29,8 @@ function createData(data) {
 
 function storeData(dataLengthCount, number, data) {
 
-	const	goesHereNum =	'goesHere' + number;
-	let goesHere = document.getElementById(goesHereNum);
+	const	cardIndex =	'goesHere' + number;
+	let goesHere = document.getElementById(cardIndex);
 
 	const html = `
 		<div class="employee" id=${number}>
@@ -44,18 +44,18 @@ function storeData(dataLengthCount, number, data) {
 
 		goesHere.innerHTML = html;
 
-		createLightbox(goesHereNum, dataLengthCount, data);
+		createLightbox(cardIndex, dataLengthCount, data);
 
 
 }
 
 
-function createLightbox(goesHereNum, dataLengthCount, data) {
-	let toChange = document.getElementById(goesHereNum);
+function createLightbox(cardIndex, dataLengthCount, data) {
+	let toChange = document.getElementById(cardIndex);
 
 		toChange.addEventListener('click', e => {
-		 let hereItGoes = parseInt(e.target.id);
-		 console.log(hereItGoes);
+		 let index = parseInt(e.target.id);
+		 console.log(index);
 		 modal.style.zIndex = 5;
 		 	modal.style.visibility = "visible";
 
@@ -70,6 +70,7 @@ function createLightbox(goesHereNum, dataLengthCount, data) {
 							<h4> ${dataLengthCount.name.title} ${dataLengthCount.name.first} ${dataLengthCount.name.last}</h4>
 				 			<p> ${dataLengthCount.email}</p>
 				 			<p> ${dataLengthCount.location.city}</p>
+							<hr>
 				 			<p> ${dataLengthCount.cell}</p>
 				 			<p> ${dataLengthCount.location.street.number} ${dataLengthCount.location.street.name}</p>
 							<p> ${dataLengthCount.location.state} </p>
@@ -80,39 +81,37 @@ function createLightbox(goesHereNum, dataLengthCount, data) {
 
 		 	modal.innerHTML = html;
 
-		hereItGoes += -1;
-		createScroll(data, hereItGoes, goesHereNum);
+		index += -1;
+		createScroll(data, index, cardIndex);
 	})
 
 }
 
 
-function createScroll(data, hereItGoes, goesHereNum) {
+function createScroll(data, index, cardIndex) {
 	let next = document.querySelector('.next');
 	let previous = document.querySelector('.previous');
 	let close = document.querySelector('.close');
 
 			close.addEventListener('click', e  => {
-				console.log('hello');
 				modal.style.visibility = "hidden";
 			 modal.style.zIndex = -1;
-				console.log('hello');
-			});
+		});
 
 		next.addEventListener('click', e => {
-			if (hereItGoes < 11) {
-					hereItGoes += 1;
-				 createModal(hereItGoes, data, goesHereNum);
-				 createScroll(data, hereItGoes, goesHereNum);
+			if (index < 11) {
+					index += 1;
+				 createModal(index, data, cardIndex);
+				 createScroll(data, index, cardIndex);
 		 		} else {
 				 console.log('hello')
 				}
 		});
 
 		previous.addEventListener('click', e => {
-			if (hereItGoes > 0) {
-					hereItGoes += -1;
-		 			createModal(hereItGoes, data, goesHereNum);
+			if (index > 0) {
+					index += -1;
+		 			createModal(index, data, cardIndex);
 			  } else {
 				console.log('hello')
 			}
@@ -121,9 +120,9 @@ function createScroll(data, hereItGoes, goesHereNum) {
 };
 
 
-function createModal(hereItGoes, data, goesHereNum) {
-	console.log(hereItGoes);
- let dataLengthCount = data[hereItGoes]
+function createModal(index, data, cardIndex) {
+	console.log(index);
+ let dataLengthCount = data[index]
 
 const html = `
 <div class="employeeModal">
@@ -136,6 +135,7 @@ const html = `
 				<h4> ${dataLengthCount.name.title} ${dataLengthCount.name.first} ${dataLengthCount.name.last}</h4>
 				<p> ${dataLengthCount.email}</p>
 				<p> ${dataLengthCount.location.city}</p>
+				<hr>
 				<p> ${dataLengthCount.cell}</p>
 				<p> ${dataLengthCount.location.street.number}  ${dataLengthCount.location.street.name}</p>
 				<p> ${dataLengthCount.location.state}</p>
@@ -147,5 +147,5 @@ const html = `
 modal.innerHTML = html;
 
 
-createScroll(data, hereItGoes, goesHereNum);
+createScroll(data, index, cardIndex);
 }
