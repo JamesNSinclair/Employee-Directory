@@ -47,7 +47,6 @@ function createData(data) {
 		//emptyDiv(data);
 		number = i+1;
 		let dataLengthCount = data[i];
-		console.log(dataLengthCount)
 		storeData(dataLengthCount, number, data);
 
 	}
@@ -61,7 +60,6 @@ function createData(data) {
 function storeData(dataLengthCount, number, data) {
 const	goesHereNum =	'goesHere' + number;
 let goesHere = document.getElementById(goesHereNum);
-console.log(number);
 const html = `
 	<div class="employee" id=${number}>
 		<img class='profile-pic' src="${dataLengthCount.picture.large}">
@@ -85,9 +83,9 @@ function createLightbox(goesHereNum, dataLengthCount, data) {
 let toChange = document.getElementById(goesHereNum);
 
 	toChange.addEventListener('click', e => {
- const hereItGoes = parseInt(e.target.id);
- console.log(hereItGoes);
+ let hereItGoes = parseInt(e.target.id);
  modal.style.zIndex = 5;
+ 	modal.style.visibility = "visible";
 
  const html = `
  <div class="employeeModal">
@@ -106,11 +104,8 @@ let toChange = document.getElementById(goesHereNum);
 
  	modal.innerHTML = html;
 
-		 if ( e.target.style.backgroundColor === 'green') {
-	    e.target.style.backgroundColor = 'white';
-		} else {
-			e.target.style.backgroundColor = 'green';
-		};
+
+hereItGoes = 0;
 createScroll(data, hereItGoes, goesHereNum);
 })
 
@@ -120,15 +115,20 @@ createScroll(data, hereItGoes, goesHereNum);
 function createScroll(data, hereItGoes, goesHereNum) {
 let next = document.querySelector('.next');
 let previous = document.querySelector('.previous');
-let hereItGoes 
+let close = document.querySelector('.close');
 
+	close.addEventListener('click', e  => {
+		console.log('hello');
+		modal.style.visibility = "hidden";
+	 modal.style.zIndex = -1;
+		console.log('hello');
+	});
 
 
 next.addEventListener('click', e => {
-hereItGoes += 1;
-let dataLengthCount = data[hereItGoes]
+	hereItGoes += 1;
+	let dataLengthCount = data[hereItGoes]
 
-console.log(hereItGoes);
 
 const html = `
 <div class="employeeModal">
@@ -150,12 +150,15 @@ const html = `
 
 
  createScroll(data, hereItGoes, goesHereNum);
+
 });
 
 previous.addEventListener('click', e => {
+
+if (hereItGoes > 0) {
+
 	hereItGoes += -1;
 	let dataLengthCount = data[hereItGoes]
-console.log(hereItGoes);
 
 const html = `
 <div class="employeeModal">
@@ -176,6 +179,11 @@ const html = `
 
 
  createScroll(data, hereItGoes, goesHereNum);
+
+
+} else {
+	console.log('hello')
+}
 });
 
-}
+};
